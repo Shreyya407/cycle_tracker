@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CycleCare - Calendar</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b2cad5",
+                        "background": "#faf9f5",
+                        "tertiary-fixed": "#bcebee",
+                        "on-tertiary-fixed-variant": "#1f4d50",
+                        "on-secondary-container": "#54695d",
+                        "on-tertiary-fixed": "#002022",
+                        "tertiary-container": "#164649",
+                        "secondary-fixed-dim": "#b5ccbd",
+                        "surface-container-low": "#f4f4f0",
+                        "surface-dim": "#dbdad6",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#334a53",
+                        "surface": "#faf9f5",
+                        "secondary-container": "#d0e8d9",
+                        "secondary": "#4e6357",
+                        "primary-container": "#2c434c",
+                        "surface-container-high": "#e9e8e4",
+                        "on-primary-fixed": "#051e27",
+                        "on-primary": "#ffffff",
+                        "primary": "#152d35",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#4b626b",
+                        "on-surface": "#1b1c1a",
+                        "primary-fixed": "#cee6f2",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#faf9f5",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#42484a",
+                        "tertiary-fixed-dim": "#a0cfd2",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2f312e",
+                        "on-primary-container": "#97afba",
+                        "inverse-primary": "#b2cad5",
+                        "secondary-fixed": "#d0e8d9",
+                        "on-secondary-fixed-variant": "#374b40",
+                        "surface-variant": "#e3e2df",
+                        "on-secondary-fixed": "#0b1f16",
+                        "on-background": "#1b1c1a",
+                        "surface-container-highest": "#e3e2df",
+                        "on-tertiary-container": "#85b3b6",
+                        "outline": "#72787b",
+                        "inverse-on-surface": "#f2f1ed",
+                        "outline-variant": "#c2c7ca",
+                        "tertiary": "#002f32",
+                        "surface-container": "#efeeea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "16px",
+                        "gutter": "24px",
+                        "xl": "64px",
+                        "base": "4px",
+                        "md": "24px",
+                        "xs": "8px",
+                        "lg": "40px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["EB Garamond"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["EB Garamond"],
+                        "headline-sm": ["EB Garamond"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "500" }]
+                    },
+                    "boxShadow": {
+                        'soft-tier-1': '0 4px 20px rgba(21, 45, 53, 0.04)',
+                        'soft-tier-2': '0 12px 32px rgba(21, 45, 53, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom styles for specific interactions or complex states not easily handled by inline utilities */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 1px;
+            background-color: var(--tw-colors-outline-variant);
+        }
+        .calendar-cell {
+            background-color: var(--tw-colors-surface);
+            aspect-ratio: 1;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        /* Subtle texture overlay for premium feel */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen antialiased flex selection:bg-tertiary-container selection:text-on-tertiary-container">
+<!-- SideNavBar (from JSON, acting as Anchor) -->
+<aside class="bg-surface-container-low shadow-md hidden lg:flex flex-col h-screen w-64 fixed left-0 top-0 p-md gap-xs z-40 border-r border-outline-variant/20">
+<!-- Header -->
+<div class="flex items-center gap-sm mb-lg px-xs">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-sm overflow-hidden flex-shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-primary m-0 leading-tight">CycleCare</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant m-0">Premium Wellness</p>
+</div>
+</div>
+<!-- Main Navigation -->
+<nav class="flex-1 flex flex-col gap-xs">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Calendar (Active - Semantic Match) -->
+<a class="flex items-center gap-sm px-md py-sm bg-secondary-container text-on-secondary-container rounded-xl font-bold transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-md text-label-md">Calendar</span>
+</a>
+<!-- Analytics (Inactive) -->
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<!-- Insights (Inactive) -->
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">lightbulb</span>
+<span class="font-label-md text-label-md">Insights</span>
+</a>
+<!-- Journal (Inactive) -->
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-md text-label-md">Journal</span>
+</a>
+</nav>
+<!-- CTA -->
+<button class="mt-auto mb-md w-full bg-primary text-on-primary rounded-xl py-sm px-md font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            Daily Check-in
+        </button>
+<!-- Footer Navigation -->
+<div class="border-t border-outline-variant/30 pt-sm flex flex-col gap-xs">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:pl-64 flex flex-col lg:flex-row min-h-screen">
+<!-- Left Area: Calendar -->
+<section class="flex-1 p-md lg:p-xl flex flex-col max-w-container-max mx-auto w-full">
+<!-- Calendar Header & Navigation -->
+<header class="flex items-center justify-between mb-lg">
+<div>
+<h2 class="font-display-lg text-display-lg text-primary m-0">October</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant m-0">2024</p>
+</div>
+<div class="flex items-center gap-xs">
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center text-on-surface transition-colors border border-outline-variant/30">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-sm py-xs rounded-full hover:bg-surface-container-high font-label-md text-label-md text-on-surface transition-colors border border-outline-variant/30">
+                        Today
+                    </button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center text-on-surface transition-colors border border-outline-variant/30">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</header>
+<!-- Legend -->
+<div class="flex flex-wrap items-center gap-md mb-md px-xs bg-surface-container-low rounded-xl py-sm self-start">
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-full bg-tertiary-container shadow-sm"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Period (Logged)</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-full border-2 border-dashed border-tertiary-container"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Predicted Window</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-full bg-secondary-container"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Predicted Ovulation</span>
+</div>
+</div>
+<!-- Calendar Container (Bento/Card style) -->
+<div class="bg-surface shadow-soft-tier-1 rounded-2xl overflow-hidden border border-outline-variant/20 flex-1 flex flex-col">
+<!-- Day Names Header -->
+<div class="grid grid-cols-7 bg-surface-container-low border-b border-outline-variant/20">
+<div class="py-sm text-center font-label-md text-label-md text-on-surface-variant">Sun</div>
+<div class="py-sm text-center font-label-md text-label-md text-on-surface-variant">Mon</div>
+<div class="py-sm text-center font-label-md text-label-md text-on-surface-variant">Tue</div>
+<div class="py-sm text-center font-label-md text-label-md text-on-surface-variant">Wed</div>
+<div class="py-sm text-center font-label-md text-label-md text-on-surface-variant">Thu</div>
+<div class="py-sm text-center font-label-md text-label-md text-on-surface-variant">Fri</div>
+<div class="py-sm text-center font-label-md text-label-md text-on-surface-variant">Sat</div>
+</div>
+<!-- Grid -->
+<div class="calendar-grid flex-1">
+<!-- Row 1 -->
+<div class="calendar-cell bg-surface-dim/30"><span class="font-body-md text-on-surface-variant/50">29</span></div>
+<div class="calendar-cell bg-surface-dim/30"><span class="font-body-md text-on-surface-variant/50">30</span></div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">1</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 21</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">2</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 22</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">3</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 23</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">4</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 24</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">5</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 25</div>
+</div>
+<!-- Row 2 -->
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">6</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 26</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">7</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 27</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">8</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 28</div>
+</div>
+<!-- Predicted Window starts -->
+<div class="calendar-cell bg-surface hover:bg-surface-container-low transition-colors cursor-pointer group relative">
+<div class="absolute inset-1 border-2 border-dashed border-tertiary-container rounded-lg pointer-events-none opacity-40"></div>
+<span class="font-body-md text-on-surface relative z-10">9</span>
+<div class="text-[10px] text-tertiary font-medium self-end relative z-10">CD 1</div>
+</div>
+<div class="calendar-cell bg-surface hover:bg-surface-container-low transition-colors cursor-pointer group relative">
+<div class="absolute inset-1 border-2 border-dashed border-tertiary-container rounded-lg pointer-events-none opacity-40"></div>
+<span class="font-body-md text-on-surface relative z-10">10</span>
+<div class="text-[10px] text-tertiary font-medium self-end relative z-10">CD 2</div>
+</div>
+<!-- Logged Period (Active/Selected state mock) -->
+<div class="calendar-cell bg-tertiary-container hover:bg-tertiary-container/90 transition-colors cursor-pointer group relative overflow-hidden shadow-inner ring-2 ring-primary ring-offset-2 ring-offset-surface z-10 rounded-lg m-[2px]">
+<span class="font-body-md text-on-tertiary-container font-semibold relative z-10">11</span>
+<div class="flex-1 flex items-center justify-center relative z-10 mt-xs">
+<span class="material-symbols-outlined text-on-tertiary-container/70 text-[20px]">water_drop</span>
+</div>
+<div class="text-[10px] text-on-tertiary-container font-medium self-end relative z-10">CD 3</div>
+<!-- Decorative glow -->
+<div class="absolute bottom-0 right-0 w-16 h-16 bg-white/10 blur-xl rounded-full"></div>
+</div>
+<div class="calendar-cell bg-tertiary-container hover:bg-tertiary-container/90 transition-colors cursor-pointer group relative overflow-hidden rounded-r-xl">
+<span class="font-body-md text-on-tertiary-container font-semibold relative z-10">12</span>
+<div class="text-[10px] text-on-tertiary-container font-medium self-end relative z-10">CD 4</div>
+</div>
+<!-- Row 3 -->
+<div class="calendar-cell bg-surface hover:bg-surface-container-low transition-colors cursor-pointer group relative">
+<div class="absolute inset-1 border-2 border-dashed border-tertiary-container rounded-lg pointer-events-none opacity-40"></div>
+<span class="font-body-md text-on-surface relative z-10">13</span>
+<div class="text-[10px] text-tertiary font-medium self-end relative z-10">CD 5</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">14</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 6</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">15</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 7</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">16</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 8</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group relative border border-primary/30 rounded-lg m-[2px]">
+<!-- Today indicator -->
+<span class="font-body-md text-primary font-bold relative z-10 bg-primary/10 w-6 h-6 flex items-center justify-center rounded-full mt-[-2px] ml-[-2px]">17</span>
+<div class="text-[10px] text-primary font-medium self-end relative z-10">CD 9</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">18</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 10</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">19</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 11</div>
+</div>
+<!-- Row 4 -->
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">20</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 12</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">21</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 13</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">22</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 14</div>
+</div>
+<!-- Ovulation Day -->
+<div class="calendar-cell bg-secondary-container/30 hover:bg-secondary-container/50 transition-colors cursor-pointer group relative overflow-hidden">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors relative z-10">23</span>
+<div class="absolute inset-0 flex items-center justify-center opacity-30">
+<span class="material-symbols-outlined text-[48px] text-secondary">egg</span>
+</div>
+<div class="flex items-center gap-1 self-end relative z-10">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+<div class="text-[10px] text-secondary font-medium">CD 15</div>
+</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">24</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 16</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">25</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 17</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">26</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 18</div>
+</div>
+<!-- Row 5 -->
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">27</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 19</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">28</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 20</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">29</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 21</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">30</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 22</div>
+</div>
+<div class="calendar-cell hover:bg-surface-container-low transition-colors cursor-pointer group">
+<span class="font-body-md text-on-surface group-hover:text-primary transition-colors">31</span>
+<div class="text-[10px] text-on-surface-variant/60 font-medium self-end">CD 23</div>
+</div>
+<div class="calendar-cell bg-surface-dim/30"><span class="font-body-md text-on-surface-variant/50">1</span></div>
+<div class="calendar-cell bg-surface-dim/30"><span class="font-body-md text-on-surface-variant/50">2</span></div>
+</div>
+</div>
+</section>
+<!-- Right Area: Daily Summary Sidebar -->
+<aside class="w-full lg:w-[360px] bg-surface-container-lowest border-l border-outline-variant/30 flex flex-col h-full lg:h-screen lg:sticky lg:top-0 p-lg shadow-[-4px_0_24px_rgba(21,45,53,0.02)]">
+<header class="mb-lg pb-md border-b border-outline-variant/20">
+<p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-1">Selected Day</p>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Friday, Oct 11</h3>
+<div class="inline-flex items-center gap-2 bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]">water_drop</span>
+<span class="font-label-sm text-label-sm">Cycle Day 3</span>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto space-y-xl pr-sm custom-scrollbar">
+<!-- Flow Section -->
+<section>
+<h4 class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2 mb-md">
+<span class="material-symbols-outlined text-[18px]">bloodtype</span>
+                        Flow
+                    </h4>
+<div class="flex items-center gap-4 bg-surface p-4 rounded-2xl border border-outline-variant/20 shadow-sm">
+<div class="flex space-x-1">
+<div class="w-2 h-6 bg-tertiary-container rounded-full"></div>
+<div class="w-2 h-8 bg-tertiary-container rounded-full"></div>
+<div class="w-2 h-6 bg-surface-variant rounded-full"></div>
+<div class="w-2 h-4 bg-surface-variant rounded-full"></div>
+</div>
+<span class="font-body-md text-on-surface">Medium</span>
+</div>
+</section>
+<!-- Symptoms Section (Bento style grid) -->
+<section>
+<h4 class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2 mb-md">
+<span class="material-symbols-outlined text-[18px]">healing</span>
+                        Symptoms Logged
+                    </h4>
+<div class="grid grid-cols-2 gap-sm">
+<!-- Card 1 -->
+<div class="bg-surface p-4 rounded-2xl border border-outline-variant/20 shadow-sm flex flex-col justify-between aspect-[4/3]">
+<span class="material-symbols-outlined text-secondary mb-2">sentiment_dissatisfied</span>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Cramps</div>
+<div class="font-body-md text-on-surface font-medium">Mild</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface p-4 rounded-2xl border border-outline-variant/20 shadow-sm flex flex-col justify-between aspect-[4/3]">
+<span class="material-symbols-outlined text-tertiary mb-2">mood</span>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Mood</div>
+<div class="font-body-md text-on-surface font-medium">Calm</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Energy Level -->
+<section>
+<h4 class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2 mb-md">
+<span class="material-symbols-outlined text-[18px]">battery_charging_full</span>
+                        Energy Level
+                    </h4>
+<div class="bg-secondary-container/20 p-4 rounded-2xl flex items-center justify-between border border-secondary-container/30">
+<span class="font-body-md text-on-surface font-medium">High</span>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+</div>
+</section>
+<!-- Journal Snippet -->
+<section>
+<h4 class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2 mb-md">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+                        Journal Notes
+                    </h4>
+<div class="bg-surface p-md rounded-2xl border border-outline-variant/20 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary/20"></div>
+<p class="font-body-md text-on-surface-variant italic m-0">"Feeling much better today. Took a short walk in the morning and managed to stay focused at work."</p>
+</div>
+</section>
+</div>
+<!-- Edit Action -->
+<div class="pt-lg mt-auto border-t border-outline-variant/20">
+<button class="w-full bg-surface hover:bg-surface-container-low text-primary border border-primary/20 rounded-xl py-sm px-md font-label-md text-label-md transition-colors shadow-sm flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                    Edit Day Log
+                </button>
+</div>
+</aside>
+</main>
+<style>
+        /* Custom scrollbar for a cleaner look in the sidebar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--tw-colors-outline-variant);
+            border-radius: 4px;
+        }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+            background: var(--tw-colors-outline);
+        }
+    </style>
+</body></html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CycleCare Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=EB+Garamond:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#b2cad5",
+                    "background": "#faf9f5",
+                    "tertiary-fixed": "#bcebee",
+                    "on-tertiary-fixed-variant": "#1f4d50",
+                    "on-secondary-container": "#54695d",
+                    "on-tertiary-fixed": "#002022",
+                    "tertiary-container": "#164649",
+                    "secondary-fixed-dim": "#b5ccbd",
+                    "surface-container-low": "#f4f4f0",
+                    "surface-dim": "#dbdad6",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#334a53",
+                    "surface": "#faf9f5",
+                    "secondary-container": "#d0e8d9",
+                    "secondary": "#4e6357",
+                    "primary-container": "#2c434c",
+                    "surface-container-high": "#e9e8e4",
+                    "on-primary-fixed": "#051e27",
+                    "on-primary": "#ffffff",
+                    "primary": "#152d35",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#4b626b",
+                    "on-surface": "#1b1c1a",
+                    "primary-fixed": "#cee6f2",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#faf9f5",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#42484a",
+                    "tertiary-fixed-dim": "#a0cfd2",
+                    "error": "#ba1a1a",
+                    "inverse-surface": "#2f312e",
+                    "on-primary-container": "#97afba",
+                    "inverse-primary": "#b2cad5",
+                    "secondary-fixed": "#d0e8d9",
+                    "on-secondary-fixed-variant": "#374b40",
+                    "surface-variant": "#e3e2df",
+                    "on-secondary-fixed": "#0b1f16",
+                    "on-background": "#1b1c1a",
+                    "surface-container-highest": "#e3e2df",
+                    "on-tertiary-container": "#85b3b6",
+                    "outline": "#72787b",
+                    "inverse-on-surface": "#f2f1ed",
+                    "outline-variant": "#c2c7ca",
+                    "tertiary": "#002f32",
+                    "surface-container": "#efeeea"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "16px",
+                    "gutter": "24px",
+                    "xl": "64px",
+                    "base": "4px",
+                    "md": "24px",
+                    "xs": "8px",
+                    "lg": "40px",
+                    "container-max": "1200px"
+            },
+            "fontFamily": {
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "EB Garamond"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "EB Garamond"
+                    ],
+                    "headline-sm": [
+                            "EB Garamond"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "display-lg-mobile": [
+                            "EB Garamond"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "letterSpacing": "0.03em",
+                                    "fontWeight": "500"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .shadow-tier-1 {
+            box-shadow: 0px 4px 20px rgba(21, 45, 53, 0.04);
+        }
+        
+        .shadow-tier-2 {
+            box-shadow: 0px 12px 32px rgba(21, 45, 53, 0.08);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden lg:flex flex-col h-screen w-64 fixed left-0 top-0 p-md gap-xs bg-surface-container-low dark:bg-surface-container-lowest shadow-md dark:shadow-none z-50">
+<div class="mb-xl flex flex-col gap-sm">
+<h1 class="font-display-lg text-display-lg text-primary dark:text-primary-fixed-dim">CycleCare</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Premium Wellness</p>
+</div>
+<div class="flex-1 flex flex-col gap-xs">
+<!-- Active Nav Item -->
+<a class="flex items-center gap-sm px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl font-bold active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Inactive Nav Items -->
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-colors duration-200 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-md text-label-md">Calendar</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-colors duration-200 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-colors duration-200 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined">lightbulb</span>
+<span class="font-label-md text-label-md">Insights</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-colors duration-200 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-md text-label-md">Journal</span>
+</a>
+</div>
+<button class="w-full py-3 px-6 bg-primary text-on-primary rounded-lg font-label-md text-label-md mb-md hover:opacity-90 transition-opacity">
+            Daily Check-in
+        </button>
+<div class="mt-auto flex flex-col gap-xs pt-4 border-t border-outline-variant/30">
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-colors duration-200 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-colors duration-200 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 lg:ml-64 overflow-y-auto p-md lg:p-xl bg-background">
+<div class="max-w-container-max mx-auto space-y-lg">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-lg">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Today, April 7</p>
+<h2 class="font-headline-md text-headline-md text-primary">Good Morning, Sarah</h2>
+</div>
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-container shadow-sm">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A sophisticated close-up portrait of a woman with calm expression, soft natural lighting, high-end editorial wellness photography style, neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASSGSAVOeN5OnaxdNq9Ghc8A1eVagyeo_4dF4M3WaqUIop34KkDyc1vm36n6TW9JedrL_-k2SKngEXOl9_ovvxwZgZWYSMTjIHe1u5WsG9UizGfdN17p2NvUpzdzV-UBm0Dd2K_CrrK746V3_jn42EwP0sJebaht4IRgWmoEmcpPDpzwh4gXcUg5YTe1E9KQI6h-XJTkQ0yoC2DTOHDWuC_QNpz-TWwUgYwG2Cs8UI9pNVKFAWavk"/>
+</div>
+</header>
+<!-- Hero Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Main Cycle Card (Takes up 2 columns) -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-[24px] p-xl shadow-tier-1 relative overflow-hidden flex flex-col justify-between min-h-[320px]">
+<!-- Decorative background element -->
+<div class="absolute -right-20 -top-20 w-96 h-96 bg-tertiary-fixed/20 rounded-full blur-[80px] pointer-events-none"></div>
+<div class="relative z-10 flex justify-between items-start">
+<div>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-sm text-label-sm mb-4 border border-secondary-container">
+                                Follicular Phase
+                            </span>
+<h3 class="font-display-lg text-display-lg text-primary mb-2">Cycle Day 12</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Your estrogen levels are rising, bringing increased energy and clarity. A great time for focused tasks.</p>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-xs justify-end text-secondary mb-1">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span class="font-label-sm text-label-sm">98% Confidence</span>
+</div>
+<p class="font-body-sm text-label-sm text-on-surface-variant">Algorithm Status: High</p>
+</div>
+</div>
+<div class="relative z-10 mt-12 flex items-end justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Next Period</p>
+<p class="font-headline-sm text-headline-sm text-primary">April 14 <span class="text-on-surface-variant font-body-lg text-body-lg ml-2">(in 7 days)</span></p>
+</div>
+<!-- Simple visual progress bar -->
+<div class="w-1/2 hidden md:block">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-2">
+<span>Day 1</span>
+<span>Day 28</span>
+</div>
+<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container w-[42%] rounded-full relative">
+<div class="absolute right-0 top-0 bottom-0 w-2 bg-white/50 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Insights Column -->
+<div class="flex flex-col gap-gutter h-full">
+<!-- Insight Card -->
+<div class="flex-1 bg-surface-container-low rounded-[24px] p-md shadow-tier-1 border border-outline-variant/10">
+<div class="flex items-center gap-sm mb-4">
+<span class="material-symbols-outlined text-tertiary p-2 bg-tertiary-fixed rounded-full">auto_awesome</span>
+<h4 class="font-headline-sm text-headline-sm text-primary">Personal Insight</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-6">Based on your past 3 cycles, you often feel more energized and social during this specific phase.</p>
+<button class="text-tertiary font-label-md text-label-md flex items-center gap-xs hover:opacity-80 transition-opacity">
+                            View Pattern Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Quick Actions -->
+<div class="grid grid-cols-2 gap-sm">
+<button class="bg-surface-container-lowest border border-outline-variant/30 rounded-[16px] p-4 flex flex-col items-center justify-center gap-xs hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface">Log Symptom</span>
+</button>
+<button class="bg-primary text-on-primary rounded-[16px] p-4 flex flex-col items-center justify-center gap-xs hover:opacity-90 transition-opacity shadow-tier-1">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-label-sm text-label-sm">Start Check-in</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Wellness Widgets Grid -->
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-md">Today's Overview</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Mood Widget -->
+<div class="bg-surface-container-lowest rounded-[16px] p-md shadow-tier-1 border border-outline-variant/10 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-secondary">sentiment_satisfied</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface-variant mb-1">Mood</h4>
+<p class="font-headline-sm text-headline-sm text-primary">Calm</p>
+</div>
+<!-- Energy Widget -->
+<div class="bg-surface-container-lowest rounded-[16px] p-md shadow-tier-1 border border-outline-variant/10 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-tertiary">bolt</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface-variant mb-1">Energy</h4>
+<p class="font-headline-sm text-headline-sm text-primary">High</p>
+</div>
+<!-- Sleep Widget -->
+<div class="bg-surface-container-lowest rounded-[16px] p-md shadow-tier-1 border border-outline-variant/10 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-primary">bedtime</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface-variant mb-1">Sleep</h4>
+<p class="font-headline-sm text-headline-sm text-primary">7.5h</p>
+</div>
+<!-- Symptoms Widget -->
+<div class="bg-surface-container-lowest rounded-[16px] p-md shadow-tier-1 border border-outline-variant/10 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-on-surface-variant">health_and_safety</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface-variant mb-1">Symptoms</h4>
+<p class="font-headline-sm text-headline-sm text-on-surface-variant opacity-70">None logged</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

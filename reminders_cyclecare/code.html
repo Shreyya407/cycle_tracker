@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reminders Settings - CycleCare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b2cad5",
+                        "background": "#faf9f5",
+                        "tertiary-fixed": "#bcebee",
+                        "on-tertiary-fixed-variant": "#1f4d50",
+                        "on-secondary-container": "#54695d",
+                        "on-tertiary-fixed": "#002022",
+                        "tertiary-container": "#164649",
+                        "secondary-fixed-dim": "#b5ccbd",
+                        "surface-container-low": "#f4f4f0",
+                        "surface-dim": "#dbdad6",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#334a53",
+                        "surface": "#faf9f5",
+                        "secondary-container": "#d0e8d9",
+                        "secondary": "#4e6357",
+                        "primary-container": "#2c434c",
+                        "surface-container-high": "#e9e8e4",
+                        "on-primary-fixed": "#051e27",
+                        "on-primary": "#ffffff",
+                        "primary": "#152d35",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#4b626b",
+                        "on-surface": "#1b1c1a",
+                        "primary-fixed": "#cee6f2",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#faf9f5",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#42484a",
+                        "tertiary-fixed-dim": "#a0cfd2",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2f312e",
+                        "on-primary-container": "#97afba",
+                        "inverse-primary": "#b2cad5",
+                        "secondary-fixed": "#d0e8d9",
+                        "on-secondary-fixed-variant": "#374b40",
+                        "surface-variant": "#e3e2df",
+                        "on-secondary-fixed": "#0b1f16",
+                        "on-background": "#1b1c1a",
+                        "surface-container-highest": "#e3e2df",
+                        "on-tertiary-container": "#85b3b6",
+                        "outline": "#72787b",
+                        "inverse-on-surface": "#f2f1ed",
+                        "outline-variant": "#c2c7ca",
+                        "tertiary": "#002f32",
+                        "surface-container": "#efeeea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "16px",
+                        "gutter": "24px",
+                        "xl": "64px",
+                        "base": "4px",
+                        "md": "24px",
+                        "xs": "8px",
+                        "lg": "40px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["EB Garamond"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["EB Garamond"],
+                        "headline-sm": ["EB Garamond"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        /* Custom Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: theme('colors.primary');
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: theme('colors.primary');
+        }
+        .toggle-checkbox {
+            right: 0;
+            z-index: 1;
+            border-color: theme('colors.outline-variant');
+            transition: all 0.3s;
+        }
+        .toggle-label {
+            background-color: theme('colors.surface-variant');
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex antialiased bg-background text-on-background">
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden lg:flex flex-col h-full p-md gap-xs bg-surface-container-low dark:bg-surface-container-lowest h-screen w-64 fixed left-0 top-0 shadow-md dark:shadow-none z-40">
+<div class="mb-lg px-xs">
+<h1 class="font-display-lg text-display-lg text-primary dark:text-primary-fixed-dim">CycleCare</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Premium Wellness</p>
+</div>
+<button class="mb-lg bg-secondary text-on-secondary py-sm px-md rounded-xl font-label-md text-label-md hover:bg-opacity-90 transition-colors w-full text-center flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="add" style="font-variation-settings: 'FILL' 0;">add</span>
+            Daily Check-in
+        </button>
+<div class="flex-1 flex flex-col gap-xs overflow-y-auto">
+<!-- Navigation Links -->
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-md text-label-md">Calendar</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+<span class="font-label-md text-label-md">Insights</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-md text-label-md">Journal</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-xs border-t border-outline-variant/30 pt-md">
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl font-bold transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-xl transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 p-4 md:p-xl max-w-container-max mx-auto w-full">
+<header class="mb-lg lg:mb-xl flex items-center justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Reminders</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Manage your notifications and daily prompts to stay on track.</p>
+</div>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Left Column: Settings List -->
+<div class="col-span-1 md:col-span-8 flex flex-col gap-md">
+<!-- Period Reminders Card -->
+<div class="bg-surface-container-lowest rounded-[16px] shadow-[0_4px_20px_rgba(21,45,53,0.04)] p-md flex flex-col gap-md border border-outline-variant/20">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="water_drop">water_drop</span>
+                                Period Reminders
+                            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Receive alerts before and during your cycle.</p>
+</div>
+<!-- Toggle Switch -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in mt-1">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="period-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="period-toggle"></label>
+</div>
+</div>
+<div class="flex flex-col gap-sm pl-8 border-l-2 border-surface-variant ml-2 mt-2">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface-variant">Days Before</label>
+<select class="bg-surface-container-low border-none text-on-surface font-body-md text-body-md rounded-lg focus:ring-1 focus:ring-primary">
+<option>1 Day</option>
+<option selected="">2 Days</option>
+<option>3 Days</option>
+<option>1 Week</option>
+</select>
+</div>
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface-variant">Day Of Alert</label>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer" id="day-of-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer" for="day-of-toggle"></label>
+</div>
+</div>
+</div>
+</div>
+<!-- Daily Check-in Card -->
+<div class="bg-surface-container-lowest rounded-[16px] shadow-[0_4px_20px_rgba(21,45,53,0.04)] p-md flex flex-col gap-md border border-outline-variant/20">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="track_changes">track_changes</span>
+                                Daily Check-in
+                            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Log your symptoms and mood consistently.</p>
+</div>
+<!-- Toggle Switch -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in mt-1">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="daily-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="daily-toggle"></label>
+</div>
+</div>
+<div class="flex flex-col gap-sm pl-8 border-l-2 border-surface-variant ml-2 mt-2">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface-variant">Reminder Time</label>
+<input class="bg-surface-container-low border-none text-on-surface font-body-md text-body-md rounded-lg focus:ring-1 focus:ring-primary p-2" type="time" value="20:00"/>
+</div>
+</div>
+</div>
+<!-- Journal Reminder Card -->
+<div class="bg-surface-container-lowest rounded-[16px] shadow-[0_4px_20px_rgba(21,45,53,0.04)] p-md flex flex-col gap-md border border-outline-variant/20">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="menu_book">menu_book</span>
+                                Journal Prompt
+                            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Weekly prompt to reflect on your wellness journey.</p>
+</div>
+<!-- Toggle Switch -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in mt-1">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="journal-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="journal-toggle"></label>
+</div>
+</div>
+<div class="flex flex-col gap-sm pl-8 border-l-2 border-surface-variant ml-2 mt-2 opacity-50 pointer-events-none">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface-variant">Frequency</label>
+<select class="bg-surface-container-low border-none text-on-surface font-body-md text-body-md rounded-lg focus:ring-1 focus:ring-primary">
+<option selected="">Weekly (Sunday)</option>
+<option>Bi-Weekly</option>
+<option>Monthly</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Channels -->
+<div class="col-span-1 md:col-span-4 flex flex-col gap-md">
+<div class="bg-surface-container-lowest rounded-[16px] shadow-[0_4px_20px_rgba(21,45,53,0.04)] p-md border border-outline-variant/20">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+                        Channels
+                    </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">How would you like to receive your reminders?</p>
+<div class="space-y-4">
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant/50 hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="form-checkbox h-5 w-5 text-primary rounded border-outline-variant focus:ring-primary focus:ring-offset-background" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Push Notifications</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Receive alerts on your device</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant/50 hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="form-checkbox h-5 w-5 text-primary rounded border-outline-variant focus:ring-primary focus:ring-offset-background" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Email</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Daily summaries and insights</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple logic to disable journal settings when toggle is off
+        document.getElementById('journal-toggle').addEventListener('change', function(e) {
+            const settingsDiv = this.closest('.bg-surface-container-lowest').querySelector('.pl-8');
+            if(e.target.checked) {
+                settingsDiv.classList.remove('opacity-50', 'pointer-events-none');
+            } else {
+                settingsDiv.classList.add('opacity-50', 'pointer-events-none');
+            }
+        });
+    </script>
+</body></html>

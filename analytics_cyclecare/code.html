@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CycleCare - Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#b2cad5",
+                      "background": "#faf9f5",
+                      "tertiary-fixed": "#bcebee",
+                      "on-tertiary-fixed-variant": "#1f4d50",
+                      "on-secondary-container": "#54695d",
+                      "on-tertiary-fixed": "#002022",
+                      "tertiary-container": "#164649",
+                      "secondary-fixed-dim": "#b5ccbd",
+                      "surface-container-low": "#f4f4f0",
+                      "surface-dim": "#dbdad6",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#334a53",
+                      "surface": "#faf9f5",
+                      "secondary-container": "#d0e8d9",
+                      "secondary": "#4e6357",
+                      "primary-container": "#2c434c",
+                      "surface-container-high": "#e9e8e4",
+                      "on-primary-fixed": "#051e27",
+                      "on-primary": "#ffffff",
+                      "primary": "#152d35",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#4b626b",
+                      "on-surface": "#1b1c1a",
+                      "primary-fixed": "#cee6f2",
+                      "error-container": "#ffdad6",
+                      "surface-bright": "#faf9f5",
+                      "on-secondary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#42484a",
+                      "tertiary-fixed-dim": "#a0cfd2",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#2f312e",
+                      "on-primary-container": "#97afba",
+                      "inverse-primary": "#b2cad5",
+                      "secondary-fixed": "#d0e8d9",
+                      "on-secondary-fixed-variant": "#374b40",
+                      "surface-variant": "#e3e2df",
+                      "on-secondary-fixed": "#0b1f16",
+                      "on-background": "#1b1c1a",
+                      "surface-container-highest": "#e3e2df",
+                      "on-tertiary-container": "#85b3b6",
+                      "outline": "#72787b",
+                      "inverse-on-surface": "#f2f1ed",
+                      "outline-variant": "#c2c7ca",
+                      "tertiary": "#002f32",
+                      "surface-container": "#efeeea"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "16px",
+                      "gutter": "24px",
+                      "xl": "64px",
+                      "base": "4px",
+                      "md": "24px",
+                      "xs": "8px",
+                      "lg": "40px",
+                      "container-max": "1200px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "EB Garamond"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "EB Garamond"
+                      ],
+                      "headline-sm": [
+                              "EB Garamond"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "EB Garamond"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.03em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .card-shadow {
+            box-shadow: 0 4px 20px 0 rgba(21, 45, 53, 0.04);
+        }
+        
+        .floating-shadow {
+            box-shadow: 0 12px 32px 0 rgba(21, 45, 53, 0.08);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex bg-background">
+<!-- Mobile Nav (TopAppBar & BottomNav alternative structure - simplified for SideNav layout) -->
+<div class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg h-16 max-w-container-max mx-auto bg-surface/80 backdrop-blur-md shadow-sm lg:hidden border-b border-surface-variant">
+<div class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">CycleCare</div>
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-primary">notifications</span>
+<span class="material-symbols-outlined text-primary">menu</span>
+</div>
+</div>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden lg:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-md p-md gap-xs z-40 border-r border-surface-variant/50">
+<div class="mb-lg px-sm pt-sm flex flex-col items-start gap-sm">
+<!-- Avatar/Logo Placeholder -->
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary font-display-lg text-headline-sm">C</div>
+<div>
+<h1 class="font-display-lg text-headline-sm text-primary">CycleCare</h1>
+<p class="font-body-md text-label-sm text-on-surface-variant">Premium Wellness</p>
+</div>
+</div>
+<button class="mb-md w-full py-sm px-md bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+            Daily Check-in
+        </button>
+<div class="flex-1 flex flex-col gap-xs overflow-y-auto">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-md text-label-md">Calendar</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-xl font-bold active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">insights</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">lightbulb</span>
+<span class="font-label-md text-label-md">Insights</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-md text-label-md">Journal</span>
+</a>
+</div>
+<div class="mt-auto pt-md border-t border-surface-variant/50 flex flex-col gap-xs">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 pt-20 lg:pt-0 min-h-screen pb-24 lg:pb-0">
+<div class="max-w-[1400px] mx-auto p-md lg:p-xl space-y-lg">
+<!-- Page Header -->
+<header class="mb-lg">
+<h1 class="font-headline-md text-headline-md text-primary mb-xs">Cycle Analytics</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Insights and trends based on your tracked data.</p>
+</header>
+<!-- Key Metrics Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-xl">
+<!-- Metric 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-surface-variant/30 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-md">
+<h3 class="font-label-md text-label-md text-on-surface-variant">Average Cycle Length</h3>
+<div class="bg-secondary-container/20 p-xs rounded-full">
+<span class="material-symbols-outlined text-secondary text-sm">cycle</span>
+</div>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="font-headline-md text-headline-md text-primary">28</span>
+<span class="font-body-md text-body-md text-on-surface-variant">days</span>
+</div>
+<div class="mt-sm text-label-sm text-secondary flex items-center gap-base">
+<span class="material-symbols-outlined text-[16px]">trending_flat</span>
+<span>Consistent with last 3 months</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-surface-variant/30 flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-md">
+<h3 class="font-label-md text-label-md text-on-surface-variant">Average Period Duration</h3>
+<div class="bg-error-container/20 p-xs rounded-full">
+<span class="material-symbols-outlined text-error text-sm">water_drop</span>
+</div>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="font-headline-md text-headline-md text-primary">5</span>
+<span class="font-body-md text-body-md text-on-surface-variant">days</span>
+</div>
+<div class="mt-sm text-label-sm text-on-surface-variant flex items-center gap-base">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span>Normal range</span>
+</div>
+</div>
+<!-- Decorative Insight Card -->
+<div class="md:col-span-2 bg-primary text-on-primary rounded-xl p-md card-shadow flex flex-col justify-center relative overflow-hidden">
+<div class="absolute -right-8 -top-8 opacity-10">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="relative z-10">
+<h3 class="font-headline-sm text-headline-sm mb-sm font-bold">Your Cycle is Stable</h3>
+<p class="font-body-md text-body-md text-primary-fixed opacity-90 max-w-md">Your variation is less than 2 days over the last 6 months. Your next cycle is predicted to start on Oct 14th.</p>
+<button class="mt-md bg-surface text-primary px-md py-xs rounded-lg font-label-sm hover:bg-surface-variant transition-colors inline-block w-fit">
+                            View Prediction Details
+                        </button>
+</div>
+</div>
+</section>
+<!-- Main Charts Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-xl">
+<!-- Cycle History (Bar Chart) -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl p-md card-shadow border border-surface-variant/30">
+<header class="flex justify-between items-center mb-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Cycle History</h2>
+<select class="bg-surface-container-low border-none rounded-lg text-label-sm font-label-md text-on-surface-variant focus:ring-primary focus:border-primary">
+<option>Last 6 Cycles</option>
+<option>Last 12 Cycles</option>
+</select>
+</header>
+<div class="h-[300px] w-full relative">
+<canvas id="cycleHistoryChart"></canvas>
+</div>
+</div>
+<!-- Symptom Frequency (Radar/Polar) -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-surface-variant/30 flex flex-col">
+<header class="mb-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Symptom Frequency</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">Most common reported</p>
+</header>
+<div class="flex-1 flex items-center justify-center relative h-[250px]">
+<canvas id="symptomChart"></canvas>
+</div>
+</div>
+</section>
+<!-- Line Chart & Table Section -->
+<section class="grid grid-cols-1 xl:grid-cols-2 gap-gutter mb-xl">
+<!-- Trends (Line Chart) -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-surface-variant/30">
+<header class="flex justify-between items-center mb-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Wellness Trends</h2>
+<div class="flex gap-sm">
+<span class="flex items-center gap-xs font-label-sm text-label-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-[#4e6357]"></span> Mood
+                            </span>
+<span class="flex items-center gap-xs font-label-sm text-label-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-[#152d35]"></span> Energy
+                            </span>
+</div>
+</header>
+<div class="h-[300px] w-full relative">
+<canvas id="trendsChart"></canvas>
+</div>
+</div>
+<!-- Comparison Table -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-surface-variant/30 overflow-hidden flex flex-col">
+<header class="mb-md">
+<h2 class="font-headline-sm text-headline-sm text-primary">Cycle Comparison</h2>
+</header>
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-variant/50">
+<th class="py-sm px-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Start Date</th>
+<th class="py-sm px-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Length</th>
+<th class="py-sm px-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Period</th>
+<th class="py-sm px-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Variance</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface">
+<tr class="border-b border-surface-variant/20 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-sm px-xs">Sep 15, 2023</td>
+<td class="py-sm px-xs">28 days</td>
+<td class="py-sm px-xs">5 days</td>
+<td class="py-sm px-xs text-secondary flex items-center gap-xs">0 <span class="material-symbols-outlined text-[14px]">horizontal_rule</span></td>
+</tr>
+<tr class="border-b border-surface-variant/20 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-sm px-xs">Aug 18, 2023</td>
+<td class="py-sm px-xs">27 days</td>
+<td class="py-sm px-xs">4 days</td>
+<td class="py-sm px-xs text-secondary flex items-center gap-xs">-1 <span class="material-symbols-outlined text-[14px]">trending_down</span></td>
+</tr>
+<tr class="border-b border-surface-variant/20 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-sm px-xs">Jul 20, 2023</td>
+<td class="py-sm px-xs">29 days</td>
+<td class="py-sm px-xs">6 days</td>
+<td class="py-sm px-xs text-error flex items-center gap-xs">+1 <span class="material-symbols-outlined text-[14px]">trending_up</span></td>
+</tr>
+<tr class="border-b border-surface-variant/20 hover:bg-surface-container-low/50 transition-colors">
+<td class="py-sm px-xs">Jun 21, 2023</td>
+<td class="py-sm px-xs">28 days</td>
+<td class="py-sm px-xs">5 days</td>
+<td class="py-sm px-xs text-secondary flex items-center gap-xs">0 <span class="material-symbols-outlined text-[14px]">horizontal_rule</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-sm px-xs">May 24, 2023</td>
+<td class="py-sm px-xs">28 days</td>
+<td class="py-sm px-xs">5 days</td>
+<td class="py-sm px-xs text-secondary flex items-center gap-xs">0 <span class="material-symbols-outlined text-[14px]">horizontal_rule</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-lg px-lg flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto border-t border-outline-variant/30 bg-surface lg:ml-64 lg:w-[calc(100%-16rem)]">
+<div class="font-headline-sm text-headline-sm font-bold text-primary mb-md md:mb-0">CycleCare</div>
+<div class="flex flex-wrap justify-center gap-md mb-md md:mb-0">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">About Us</a>
+</div>
+<div class="font-body-md text-label-sm text-on-surface-variant">© 2024 CycleCare Wellness. All rights reserved.</div>
+</footer>
+<script>
+        // Chart.js Configuration Defaults
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#72787b'; // outline color
+        Chart.defaults.scale.grid.color = '#efeeea'; // surface-container
+        Chart.defaults.plugins.tooltip.backgroundColor = '#152d35'; // primary
+        Chart.defaults.plugins.tooltip.titleFont = { family: "'EB Garamond', serif", size: 16 };
+        Chart.defaults.plugins.tooltip.bodyFont = { family: "'Inter', sans-serif", size: 14 };
+        Chart.defaults.plugins.tooltip.padding = 12;
+        Chart.defaults.plugins.tooltip.cornerRadius = 8;
+
+        // 1. Cycle History Bar Chart
+        const ctxHistory = document.getElementById('cycleHistoryChart').getContext('2d');
+        new Chart(ctxHistory, {
+            type: 'bar',
+            data: {
+                labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                datasets: [
+                    {
+                        label: 'Follicular & Luteal (Days)',
+                        data: [23, 23, 23, 23, 23, 23],
+                        backgroundColor: '#d0e8d9', // secondary-container
+                        borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 },
+                        barPercentage: 0.5
+                    },
+                    {
+                        label: 'Period (Days)',
+                        data: [5, 5, 6, 4, 5, 5],
+                        backgroundColor: '#ffdad6', // error-container
+                        borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 4, bottomRight: 4 },
+                         barPercentage: 0.5
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, grid: { display: false } },
+                    y: { stacked: true, beginAtZero: true, suggestedMax: 35 }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                             title: (items) => items[0].label + ' Cycle',
+                        }
+                    }
+                }
+            }
+        });
+
+        // 2. Symptom Frequency Radar Chart
+        const ctxSymptom = document.getElementById('symptomChart').getContext('2d');
+        new Chart(ctxSymptom, {
+            type: 'radar',
+            data: {
+                labels: ['Cramps', 'Headache', 'Bloating', 'Fatigue', 'Acne', 'Mood Swings'],
+                datasets: [{
+                    label: 'Frequency',
+                    data: [8, 3, 6, 9, 2, 5],
+                    backgroundColor: 'rgba(21, 45, 53, 0.1)', // primary with opacity
+                    borderColor: '#152d35', // primary
+                    pointBackgroundColor: '#4e6357', // secondary
+                    borderWidth: 2,
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#e3e2df' }, // surface-variant
+                        grid: { color: '#e3e2df' },
+                        pointLabels: { font: { size: 12 }, color: '#42484a' }, // on-surface-variant
+                        ticks: { display: false, max: 10 }
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // 3. Wellness Trends Line Chart
+        const ctxTrends = document.getElementById('trendsChart').getContext('2d');
+        
+        // Gradient for Mood Area
+        let gradientMood = ctxTrends.createLinearGradient(0, 0, 0, 300);
+        gradientMood.addColorStop(0, 'rgba(78, 99, 87, 0.2)'); // secondary
+        gradientMood.addColorStop(1, 'rgba(78, 99, 87, 0)');
+
+        // Gradient for Energy Area
+        let gradientEnergy = ctxTrends.createLinearGradient(0, 0, 0, 300);
+        gradientEnergy.addColorStop(0, 'rgba(21, 45, 53, 0.15)'); // primary
+        gradientEnergy.addColorStop(1, 'rgba(21, 45, 53, 0)');
+
+        new Chart(ctxTrends, {
+            type: 'line',
+            data: {
+                labels: ['Day 1', 'Day 5', 'Day 10', 'Day 14', 'Day 20', 'Day 25', 'Day 28'],
+                datasets: [
+                    {
+                        label: 'Mood',
+                        data: [3, 5, 7, 8, 6, 4, 3],
+                        borderColor: '#4e6357', // secondary
+                        backgroundColor: gradientMood,
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#4e6357',
+                        pointBorderWidth: 2,
+                        pointRadius: 4
+                    },
+                    {
+                        label: 'Energy',
+                        data: [2, 4, 8, 9, 7, 5, 3],
+                        borderColor: '#152d35', // primary
+                        backgroundColor: gradientEnergy,
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#152d35',
+                        pointBorderWidth: 2,
+                        pointRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { grid: { display: false } },
+                    y: { min: 1, max: 10, ticks: { stepSize: 2 } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                interaction: { mode: 'nearest', axis: 'x', intersect: false }
+            }
+        });
+    </script>
+</body></html>

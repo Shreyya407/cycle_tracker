@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Daily Check-in - CycleCare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=EB+Garamond:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b2cad5",
+                        "background": "#faf9f5",
+                        "tertiary-fixed": "#bcebee",
+                        "on-tertiary-fixed-variant": "#1f4d50",
+                        "on-secondary-container": "#54695d",
+                        "on-tertiary-fixed": "#002022",
+                        "tertiary-container": "#164649",
+                        "secondary-fixed-dim": "#b5ccbd",
+                        "surface-container-low": "#f4f4f0",
+                        "surface-dim": "#dbdad6",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#334a53",
+                        "surface": "#faf9f5",
+                        "secondary-container": "#d0e8d9",
+                        "secondary": "#4e6357",
+                        "primary-container": "#2c434c",
+                        "surface-container-high": "#e9e8e4",
+                        "on-primary-fixed": "#051e27",
+                        "on-primary": "#ffffff",
+                        "primary": "#152d35",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#4b626b",
+                        "on-surface": "#1b1c1a",
+                        "primary-fixed": "#cee6f2",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#faf9f5",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#42484a",
+                        "tertiary-fixed-dim": "#a0cfd2",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2f312e",
+                        "on-primary-container": "#97afba",
+                        "inverse-primary": "#b2cad5",
+                        "secondary-fixed": "#d0e8d9",
+                        "on-secondary-fixed-variant": "#374b40",
+                        "surface-variant": "#e3e2df",
+                        "on-secondary-fixed": "#0b1f16",
+                        "on-background": "#1b1c1a",
+                        "surface-container-highest": "#e3e2df",
+                        "on-tertiary-container": "#85b3b6",
+                        "outline": "#72787b",
+                        "inverse-on-surface": "#f2f1ed",
+                        "outline-variant": "#c2c7ca",
+                        "tertiary": "#002f32",
+                        "surface-container": "#efeeea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "16px",
+                        "gutter": "24px",
+                        "xl": "64px",
+                        "base": "4px",
+                        "md": "24px",
+                        "xs": "8px",
+                        "lg": "40px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["EB Garamond"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["EB Garamond"],
+                        "headline-sm": ["EB Garamond"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #faf9f5; /* bg-background */
+        }
+        /* Hide scrollbar for clean aesthetic */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .ambient-shadow-tier1 {
+            box-shadow: 0 4px 20px rgba(21, 45, 53, 0.04);
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slider-custom {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            background: #e3e2df; /* surface-variant */
+            outline: none;
+            border-radius: 9999px;
+        }
+        
+        .slider-custom::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #152d35; /* primary */
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(21, 45, 53, 0.2);
+            border: 2px solid #ffffff;
+            transition: transform 0.1s;
+        }
+
+        .slider-custom::-webkit-slider-thumb:active {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="text-on-background font-body-md antialiased overflow-x-hidden">
+<!-- Mobile Top Bar (Visible only on small screens) -->
+<nav class="md:hidden fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">CycleCare</div>
+<div class="flex gap-4 text-primary">
+<button class="hover:bg-surface-container-high/50 rounded-lg p-2 transition-all duration-200 ease-in-out active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-container-high/50 rounded-lg p-2 transition-all duration-200 ease-in-out active:scale-95">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small, soft-focus circular avatar portrait of a calm woman in a high-key, airy studio setting, natural lighting, minimalistic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwyNhxPVltaLy71aH4_Smz2foiMtjT6juGvG-hDNAaBYGisMVexqWUNacK6ubi-u0Fvsbh9n-zZOYV1C8-CMIsqh5xRa9X1oXiCfQ-X__KLKV-k8S-EuuanOgSbP-sNpTI2sifABmki-C59W_x70saA5kQjth0z_wZ70rOkmDKdFehRadswRUQPZe2LHPijseqdp1u1HWqHdlg4cHHHBNlrEBHOkBj8xuPLeOts3PYTrSWZ-pGquE"/>
+</button>
+</div>
+</nav>
+<!-- SideNavBar (Hidden on Mobile, Visible on md+) -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-md p-md gap-xs z-40">
+<div class="flex items-center gap-3 mb-xl px-2">
+<img alt="CycleCare Logo" class="w-10 h-10 rounded-full shadow-sm object-cover" data-alt="A minimalist logo mark for a wellness brand, featuring a delicate, abstract botanical shape in deep slate blue on a soft off-white background, elegant and clean." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsH6K-q6KtqXvm4UbqTlbjrgN71rBsok-swhdvMcOG0YENwJeK19cYGL13p4VJpER125KeJIbVZL8PSY9gS9Rr93CVtRwLH-TJ6Igw2u6SpEsNgm6S-Q7P35g8IoRs0F67e2zjl07WRtqEBhR55oCEGwTxU-JTgWu0qNCIZCmg_KHFNpVolkl_mtffQw-O5vep9k0eFEAIGVqlfSYZ9RE7TRyQIxFCHnp5mT0-wFvsrLqg9H785y4"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-primary font-bold">CycleCare</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Premium Wellness</p>
+</div>
+</div>
+<button class="mb-md w-full py-3 px-4 bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+            Daily Check-in
+        </button>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-xl font-bold font-label-md text-label-md transition-transform active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-label-md text-label-md transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                Calendar
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-label-md text-label-md transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-label-md text-label-md transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+                Insights
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-label-md text-label-md transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Journal
+            </a>
+</nav>
+<div class="mt-auto flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-label-md text-label-md transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl font-label-md text-label-md transition-colors duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 pt-20 md:pt-0 min-h-screen relative flex flex-col hide-scrollbar">
+<!-- Hero/Header Section with calming imagery background -->
+<div class="relative h-64 md:h-80 w-full shrink-0">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A serene, abstract composition featuring soft, flowing gradients in pale sage green, warm off-white, and muted slate blue, suggesting morning dew on soft petals or gentle water ripples in a minimalist, high-end editorial style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCfkWjkM5DD-ytNtXSx4JS8TqRvflHa2Ry6IiMKMQURDSxDOborrij2cbc0wA3ReNlJU6kG692e2uafoLlceS0wwgo02iOwhsEEMmjyBdtXm3EHnoUJog7jW5SywtPJN94nonSdFuGcSe0Zdh0adS7s_ltAyqjLNx9PFFhIFYRbduUvJFUMnJOSpPcwQ_3dZn56onL2qu8v9EnIgdy3gSEdtAsD_U1PNcwKPvpi5iTFGTKtQ_gLUro')"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-background"></div>
+<div class="absolute bottom-0 left-0 w-full p-lg pb-sm max-w-container-max mx-auto px-lg">
+<p class="font-label-md text-label-md text-primary/70 uppercase tracking-widest mb-2">Today's Reflection</p>
+<h2 class="font-display-lg text-display-lg text-primary md:hidden">Daily Check-in</h2>
+<h2 class="font-display-lg text-display-lg text-primary hidden md:block">Daily Check-in</h2>
+</div>
+</div>
+<div class="flex-1 w-full max-w-container-max mx-auto px-lg md:px-xl py-lg">
+<form class="flex flex-col gap-xl">
+<!-- Bento Grid Layout for Check-in Modules -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Mood Module (Span 12 or 8) -->
+<section class="col-span-1 md:col-span-12 bg-white rounded-xl ambient-shadow-tier1 p-md flex flex-col gap-4">
+<header>
+<h3 class="font-headline-sm text-headline-sm text-primary">How are you feeling today?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Select the mood that best represents your current state.</p>
+</header>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-2">
+<!-- Mood: Happy -->
+<label class="cursor-pointer group">
+<input checked="" class="peer sr-only" name="mood" type="radio" value="happy"/>
+<div class="flex flex-col items-center justify-center p-md rounded-xl border border-outline-variant/30 bg-surface peer-checked:bg-secondary-container peer-checked:border-secondary transition-all duration-300 group-hover:shadow-sm">
+<span class="material-symbols-outlined text-[40px] text-primary mb-2" data-icon="sentiment_very_satisfied" data-weight="fill">sentiment_very_satisfied</span>
+<span class="font-label-md text-label-md text-primary">Happy</span>
+</div>
+</label>
+<!-- Mood: Calm -->
+<label class="cursor-pointer group">
+<input class="peer sr-only" name="mood" type="radio" value="calm"/>
+<div class="flex flex-col items-center justify-center p-md rounded-xl border border-outline-variant/30 bg-surface peer-checked:bg-secondary-container peer-checked:border-secondary transition-all duration-300 group-hover:shadow-sm">
+<span class="material-symbols-outlined text-[40px] text-primary mb-2" data-icon="sentiment_satisfied" data-weight="fill">sentiment_satisfied</span>
+<span class="font-label-md text-label-md text-primary">Calm</span>
+</div>
+</label>
+<!-- Mood: Irritable -->
+<label class="cursor-pointer group">
+<input class="peer sr-only" name="mood" type="radio" value="irritable"/>
+<div class="flex flex-col items-center justify-center p-md rounded-xl border border-outline-variant/30 bg-surface peer-checked:bg-error-container peer-checked:border-error transition-all duration-300 group-hover:shadow-sm">
+<span class="material-symbols-outlined text-[40px] text-primary mb-2" data-icon="sentiment_dissatisfied" data-weight="fill">sentiment_dissatisfied</span>
+<span class="font-label-md text-label-md text-primary">Irritable</span>
+</div>
+</label>
+<!-- Mood: Sad -->
+<label class="cursor-pointer group">
+<input class="peer sr-only" name="mood" type="radio" value="sad"/>
+<div class="flex flex-col items-center justify-center p-md rounded-xl border border-outline-variant/30 bg-surface peer-checked:bg-primary-fixed peer-checked:border-primary transition-all duration-300 group-hover:shadow-sm">
+<span class="material-symbols-outlined text-[40px] text-primary mb-2" data-icon="mood_bad" data-weight="fill">mood_bad</span>
+<span class="font-label-md text-label-md text-primary">Sad</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Energy Module -->
+<section class="col-span-1 md:col-span-6 bg-white rounded-xl ambient-shadow-tier1 p-md flex flex-col gap-6">
+<header>
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="bolt">bolt</span>
+                                Energy Level
+                            </h3>
+</header>
+<div class="flex flex-col flex-1 justify-center px-4">
+<input class="w-full slider-custom" id="energySlider" max="5" min="1" type="range" value="3"/>
+<div class="flex justify-between mt-4 font-label-sm text-label-sm text-on-surface-variant">
+<span>Low</span>
+<span>High</span>
+</div>
+</div>
+</section>
+<!-- Hydration Module -->
+<section class="col-span-1 md:col-span-6 bg-white rounded-xl ambient-shadow-tier1 p-md flex flex-col gap-4">
+<header>
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="water_drop">water_drop</span>
+                                Hydration
+                            </h3>
+</header>
+<div class="flex items-center justify-center gap-2 mt-2" id="hydrationContainer">
+<!-- Glasses generated via JS or statically here -->
+<button class="w-10 h-12 rounded-b-lg border-2 border-primary-fixed-dim bg-primary-fixed flex items-end justify-center overflow-hidden transition-colors" type="button">
+<div class="w-full h-full bg-primary-fixed-dim/50"></div>
+</button>
+<button class="w-10 h-12 rounded-b-lg border-2 border-primary-fixed-dim bg-primary-fixed flex items-end justify-center overflow-hidden transition-colors" type="button">
+<div class="w-full h-full bg-primary-fixed-dim/50"></div>
+</button>
+<button class="w-10 h-12 rounded-b-lg border-2 border-primary-fixed-dim bg-primary-fixed flex items-end justify-center overflow-hidden transition-colors" type="button">
+<div class="w-full h-full bg-primary-fixed-dim/50"></div>
+</button>
+<button class="w-10 h-12 rounded-b-lg border-2 border-outline-variant/50 bg-surface flex items-end justify-center overflow-hidden transition-colors" type="button">
+<div class="w-full h-0 bg-primary-fixed-dim/50 transition-all duration-300"></div>
+</button>
+<button class="w-10 h-12 rounded-b-lg border-2 border-outline-variant/50 bg-surface flex items-end justify-center overflow-hidden transition-colors" type="button">
+<div class="w-full h-0 bg-primary-fixed-dim/50 transition-all duration-300"></div>
+</button>
+<button class="w-10 h-12 rounded-b-lg border-2 border-outline-variant/50 bg-surface flex items-end justify-center overflow-hidden transition-colors" type="button">
+<div class="w-full h-0 bg-primary-fixed-dim/50 transition-all duration-300"></div>
+</button>
+</div>
+<p class="text-center font-label-sm text-label-sm text-on-surface-variant mt-2">3 of 8 glasses</p>
+</section>
+<!-- Sleep Module (Full Width in Grid) -->
+<section class="col-span-1 md:col-span-12 bg-white rounded-xl ambient-shadow-tier1 p-md flex flex-col gap-6">
+<header>
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="bedtime">bedtime</span>
+                                Sleep Rest
+                            </h3>
+</header>
+<div class="flex flex-col md:flex-row gap-xl items-start">
+<div class="flex-1 w-full">
+<label class="block font-label-md text-label-md text-on-surface mb-2">Duration (Hours)</label>
+<div class="relative w-full md:w-48">
+<input class="w-full bg-surface border border-outline-variant/50 rounded-lg px-4 py-3 font-body-md text-body-md text-primary focus:border-primary focus:ring-2 focus:ring-secondary-fixed/50 transition-all outline-none" max="24" min="0" step="0.5" type="number" value="7.5"/>
+</div>
+</div>
+<div class="flex-1 w-full">
+<label class="block font-label-md text-label-md text-on-surface mb-2">Quality</label>
+<div class="flex gap-4">
+<label class="cursor-pointer flex-1">
+<input class="peer sr-only" name="sleep_quality" type="radio" value="poor"/>
+<div class="py-2 px-4 rounded-lg border border-outline-variant/30 text-center font-label-md text-label-md text-on-surface-variant peer-checked:bg-primary-container peer-checked:text-on-primary-container peer-checked:border-primary-container transition-all">Poor</div>
+</label>
+<label class="cursor-pointer flex-1">
+<input class="peer sr-only" name="sleep_quality" type="radio" value="fair"/>
+<div class="py-2 px-4 rounded-lg border border-outline-variant/30 text-center font-label-md text-label-md text-on-surface-variant peer-checked:bg-primary-container peer-checked:text-on-primary-container peer-checked:border-primary-container transition-all">Fair</div>
+</label>
+<label class="cursor-pointer flex-1">
+<input checked="" class="peer sr-only" name="sleep_quality" type="radio" value="good"/>
+<div class="py-2 px-4 rounded-lg border border-outline-variant/30 text-center font-label-md text-label-md text-on-surface-variant peer-checked:bg-primary-container peer-checked:text-on-primary-container peer-checked:border-primary-container transition-all">Good</div>
+</label>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Action Button -->
+<div class="flex justify-end pt-4 pb-xl">
+<button class="px-xl py-4 bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-md hover:bg-primary/90 transition-colors duration-200 w-full md:w-auto" type="submit">
+                        Save Check-in
+                    </button>
+</div>
+</form>
+</div>
+<!-- Footer -->
+<footer class="w-full py-lg px-lg flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto bg-surface border-t border-outline-variant/30 mt-auto">
+<div class="font-headline-sm text-headline-sm font-bold text-primary mb-4 md:mb-0">CycleCare</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 md:mb-0">© 2024 CycleCare Wellness. All rights reserved.</p>
+<div class="flex gap-4">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-opacity opacity-80 hover:opacity-100 hover:underline" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-opacity opacity-80 hover:opacity-100 hover:underline" href="#">Terms of Service</a>
+</div>
+</footer>
+</main>
+<script>
+        // Simple interaction for Hydration glasses to show visual feedback
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('hydrationContainer');
+            if(container) {
+                const buttons = container.querySelectorAll('button');
+                buttons.forEach((btn, index) => {
+                    btn.addEventListener('click', () => {
+                        // Fill up to the clicked index
+                        buttons.forEach((b, i) => {
+                            const innerDiv = b.querySelector('div');
+                            if (i <= index) {
+                                b.classList.add('border-primary-fixed-dim', 'bg-primary-fixed');
+                                b.classList.remove('border-outline-variant/50', 'bg-surface');
+                                innerDiv.style.height = '100%';
+                            } else {
+                                b.classList.remove('border-primary-fixed-dim', 'bg-primary-fixed');
+                                b.classList.add('border-outline-variant/50', 'bg-surface');
+                                innerDiv.style.height = '0';
+                            }
+                        });
+                        // Update text
+                        const textEl = container.nextElementSibling;
+                        if(textEl) textEl.textContent = `${index + 1} of 8 glasses`;
+                    });
+                });
+            }
+        });
+    </script>
+</body></html>

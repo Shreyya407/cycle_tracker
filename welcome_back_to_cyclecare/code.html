@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CycleCare - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b2cad5",
+                        "background": "#faf9f5",
+                        "tertiary-fixed": "#bcebee",
+                        "on-tertiary-fixed-variant": "#1f4d50",
+                        "on-secondary-container": "#54695d",
+                        "on-tertiary-fixed": "#002022",
+                        "tertiary-container": "#164649",
+                        "secondary-fixed-dim": "#b5ccbd",
+                        "surface-container-low": "#f4f4f0",
+                        "surface-dim": "#dbdad6",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#334a53",
+                        "surface": "#faf9f5",
+                        "secondary-container": "#d0e8d9",
+                        "secondary": "#4e6357",
+                        "primary-container": "#2c434c",
+                        "surface-container-high": "#e9e8e4",
+                        "on-primary-fixed": "#051e27",
+                        "on-primary": "#ffffff",
+                        "primary": "#152d35",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#4b626b",
+                        "on-surface": "#1b1c1a",
+                        "primary-fixed": "#cee6f2",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#faf9f5",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#42484a",
+                        "tertiary-fixed-dim": "#a0cfd2",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2f312e",
+                        "on-primary-container": "#97afba",
+                        "inverse-primary": "#b2cad5",
+                        "secondary-fixed": "#d0e8d9",
+                        "on-secondary-fixed-variant": "#374b40",
+                        "surface-variant": "#e3e2df",
+                        "on-secondary-fixed": "#0b1f16",
+                        "on-background": "#1b1c1a",
+                        "surface-container-highest": "#e3e2df",
+                        "on-tertiary-container": "#85b3b6",
+                        "outline": "#72787b",
+                        "inverse-on-surface": "#f2f1ed",
+                        "outline-variant": "#c2c7ca",
+                        "tertiary": "#002f32",
+                        "surface-container": "#efeeea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "16px",
+                        "gutter": "24px",
+                        "xl": "64px",
+                        "base": "4px",
+                        "md": "24px",
+                        "xs": "8px",
+                        "lg": "40px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["EB Garamond"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["EB Garamond"],
+                        "headline-sm": ["EB Garamond"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, theme('colors.primary-fixed') 0%, rgba(255,255,255,0) 70%);
+            opacity: 0.4;
+            filter: blur(60px);
+            z-index: -1;
+            top: -100px;
+            right: -100px;
+            pointer-events: none;
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, theme('colors.secondary-container') 0%, rgba(255,255,255,0) 70%);
+            opacity: 0.3;
+            filter: blur(80px);
+            z-index: -1;
+            bottom: -50px;
+            left: -100px;
+            pointer-events: none;
+        }
+        
+        .input-field {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .input-field:focus {
+            box-shadow: 0 0 0 4px theme('colors.primary-fixed');
+            border-color: theme('colors.primary');
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center relative overflow-hidden font-body-md text-body-md">
+<!-- Ambient Background Effects -->
+<div class="ambient-glow"></div>
+<div class="ambient-glow-2"></div>
+<div class="w-full max-w-md px-md md:px-0 relative z-10">
+<!-- Login Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_12px_32px_rgba(21,45,53,0.08)] p-xl flex flex-col gap-lg">
+<!-- Header -->
+<div class="text-center flex flex-col gap-sm">
+<h1 class="font-display-lg text-display-lg md:font-display-lg-mobile md:text-display-lg-mobile text-primary tracking-tight">CycleCare</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Welcome back to your premium wellness journey.</p>
+</div>
+<!-- Form -->
+<form class="flex flex-col gap-md" onsubmit="event.preventDefault();">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="email">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">mail</span>
+<input class="input-field w-full bg-surface-container-low border border-outline-variant rounded-lg py-sm pl-[48px] pr-sm font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-0" id="email" placeholder="hello@example.com" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
+<a class="font-label-sm text-label-sm text-primary hover:underline transition-all" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="input-field w-full bg-surface-container-low border border-outline-variant rounded-lg py-sm pl-[48px] pr-sm font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-0" id="password" placeholder="••••••••" type="password"/>
+<button aria-label="Toggle password visibility" class="absolute right-sm top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-sm px-md rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-[0.98] mt-sm shadow-[0_4px_20px_rgba(21,45,53,0.15)] hover:shadow-[0_6px_24px_rgba(21,45,53,0.2)]" type="submit">
+                    Sign In
+                </button>
+</form>
+<!-- Divider -->
+<div class="flex items-center gap-md">
+<div class="flex-1 h-px bg-outline-variant/30"></div>
+<span class="font-label-sm text-label-sm text-outline">OR CONTINUE WITH</span>
+<div class="flex-1 h-px bg-outline-variant/30"></div>
+</div>
+<!-- Alternative Login Options -->
+<div class="flex flex-col gap-sm">
+<button class="w-full flex items-center justify-center gap-sm bg-surface-container-lowest border border-outline-variant text-on-surface font-label-md text-label-md py-sm px-md rounded-lg hover:bg-surface-container-low transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+                    Use Biometrics
+                </button>
+<button class="w-full flex items-center justify-center gap-sm bg-surface-container-lowest border border-outline-variant text-on-surface font-label-md text-label-md py-sm px-md rounded-lg hover:bg-surface-container-low transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]">lock_person</span>
+                    Single Sign-On (SSO)
+                </button>
+</div>
+<!-- Footer Link -->
+<div class="text-center pt-sm border-t border-outline-variant/30">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Don't have an account? <a class="font-label-md text-label-md text-primary hover:underline transition-all" href="#">Create Account</a>
+</p>
+</div>
+</div>
+</div>
+</body></html>

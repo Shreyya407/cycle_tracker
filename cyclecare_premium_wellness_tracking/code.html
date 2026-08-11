@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CycleCare | Wellness &amp; Precision Tracking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#b2cad5",
+                      "background": "#faf9f5",
+                      "tertiary-fixed": "#bcebee",
+                      "on-tertiary-fixed-variant": "#1f4d50",
+                      "on-secondary-container": "#54695d",
+                      "on-tertiary-fixed": "#002022",
+                      "tertiary-container": "#164649",
+                      "secondary-fixed-dim": "#b5ccbd",
+                      "surface-container-low": "#f4f4f0",
+                      "surface-dim": "#dbdad6",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#334a53",
+                      "surface": "#faf9f5",
+                      "secondary-container": "#d0e8d9",
+                      "secondary": "#4e6357",
+                      "primary-container": "#2c434c",
+                      "surface-container-high": "#e9e8e4",
+                      "on-primary-fixed": "#051e27",
+                      "on-primary": "#ffffff",
+                      "primary": "#152d35",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#4b626b",
+                      "on-surface": "#1b1c1a",
+                      "primary-fixed": "#cee6f2",
+                      "error-container": "#ffdad6",
+                      "surface-bright": "#faf9f5",
+                      "on-secondary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#42484a",
+                      "tertiary-fixed-dim": "#a0cfd2",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#2f312e",
+                      "on-primary-container": "#97afba",
+                      "inverse-primary": "#b2cad5",
+                      "secondary-fixed": "#d0e8d9",
+                      "on-secondary-fixed-variant": "#374b40",
+                      "surface-variant": "#e3e2df",
+                      "on-secondary-fixed": "#0b1f16",
+                      "on-background": "#1b1c1a",
+                      "surface-container-highest": "#e3e2df",
+                      "on-tertiary-container": "#85b3b6",
+                      "outline": "#72787b",
+                      "inverse-on-surface": "#f2f1ed",
+                      "outline-variant": "#c2c7ca",
+                      "tertiary": "#002f32",
+                      "surface-container": "#efeeea"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px",
+                      "2xl": "1rem",
+                      "3xl": "1.5rem"
+              },
+              "spacing": {
+                      "sm": "16px",
+                      "gutter": "24px",
+                      "xl": "64px",
+                      "base": "4px",
+                      "md": "24px",
+                      "xs": "8px",
+                      "lg": "40px",
+                      "container-max": "1200px",
+                      "2xl": "96px",
+                      "3xl": "128px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "EB Garamond"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "EB Garamond"
+                      ],
+                      "headline-sm": [
+                              "EB Garamond"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "EB Garamond"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.03em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .shadow-tier-1 {
+            box-shadow: 0 4px 20px rgba(21, 45, 53, 0.04);
+        }
+        .shadow-tier-2 {
+            box-shadow: 0 12px 32px rgba(21, 45, 53, 0.08);
+        }
+        
+        .bg-pattern {
+            background-image: radial-gradient(var(--tw-colors-primary-fixed-dim) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden selection:bg-primary-fixed-dim selection:text-primary">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg h-16 max-w-container-max mx-auto bg-surface/80 dark:bg-surface/80 backdrop-blur-md shadow-sm transition-all duration-200 ease-in-out">
+<div class="flex items-center gap-md w-full justify-between">
+<!-- Brand -->
+<a class="font-display-lg text-display-lg font-bold text-primary dark:text-primary-fixed-dim truncate hover:opacity-80 transition-opacity" href="#">
+                CycleCare
+            </a>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex gap-md">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest/50 rounded-lg px-3 py-2" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest/50 rounded-lg px-3 py-2" href="#">Calendar</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest/50 rounded-lg px-3 py-2" href="#">Analytics</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest/50 rounded-lg px-3 py-2" href="#">Insights</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest/50 rounded-lg px-3 py-2" href="#">Journal</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-xs">
+<button aria-label="Notifications" class="p-2 text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest/50 rounded-lg transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="Settings" class="p-2 text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest/50 rounded-lg transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<!-- Mobile Menu Button -->
+<button aria-label="Menu" class="md:hidden p-2 text-primary hover:bg-surface-container-high/50 rounded-lg transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-2xl pb-3xl w-full max-w-container-max mx-auto px-sm md:px-xl flex flex-col gap-3xl">
+<!-- Hero Section -->
+<section class="relative flex flex-col md:flex-row items-center gap-xl min-h-[70vh]">
+<div class="absolute inset-0 bg-pattern -z-10 pointer-events-none"></div>
+<div class="flex-1 flex flex-col gap-md z-10 text-center md:text-left">
+<span class="font-label-md text-label-md text-tertiary-container uppercase tracking-widest">Premium Tracking Experience</span>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary max-w-2xl">
+                    Understand your body's natural rhythm with scientific precision.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto md:mx-0">
+                    A serene, privacy-first wellness platform designed to provide data-driven insights without stereotypes.
+                </p>
+<div class="flex flex-col sm:flex-row gap-sm mt-sm justify-center md:justify-start">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-[24px] py-[16px] rounded-lg hover:bg-primary-container transition-colors shadow-tier-1 active:scale-95 duration-200">
+                        Start Your Journey
+                    </button>
+<button class="bg-surface-container-low text-primary font-label-md text-label-md px-[24px] py-[16px] rounded-lg hover:bg-surface-container-high transition-colors active:scale-95 duration-200 border border-outline-variant/30">
+                        Explore Features
+                    </button>
+</div>
+</div>
+<div class="flex-1 w-full relative">
+<div class="relative w-full aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden shadow-tier-2 bg-surface-container-low border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="A serene, abstract composition featuring soft, curving organic shapes in muted tones of slate blue, sage green, and soft beige. The lighting is diffused and natural, creating a calming, premium wellness aesthetic. There are subtle glassmorphic elements reflecting soft light, implying scientific precision combined with holistic care. The overall mood is tranquil, sophisticated, and deeply feminine without relying on pink stereotypes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg0QMn90xgKjKV_rBbsaZXhJ4dnQ6NgTyAlDno1kpPIgrmAHjGP2A0rk9g1Mz8QYC-5KHYTokaFy6dyc659BVX_8Ep3sCig68ndr5jsdjo_SYQu01urCL6LCLIhqzU66tvO3VzWxWyMl5lEefyUdyg28ZESxdk48nrveO_TC9qLUgOjvMeRispBobN6y5Ib2_L7RY7wI7xJPRAhbkGdrAAQDp7C7-RwaFEVRtxTzNAmlfRnp2eCn0"/>
+</div>
+</div>
+</section>
+<!-- Value Proposition Section (Bento Grid) -->
+<section class="flex flex-col gap-lg">
+<div class="text-center max-w-2xl mx-auto mb-md">
+<h2 class="font-headline-md text-headline-md text-primary mb-xs">Holistic Wellness, Defined.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Built on the principles of clarity, privacy, and scientific rigor.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl p-lg shadow-tier-1 border border-outline-variant/30 flex flex-col items-start gap-sm hover:shadow-tier-2 transition-shadow duration-300">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary mb-xs">
+<span class="material-symbols-outlined filled">lock</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Privacy-First Tracking</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your data is encrypted end-to-end. We never sell your personal information. It's your body, your data.</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl p-lg shadow-tier-1 border border-outline-variant/30 flex flex-col items-start gap-sm hover:shadow-tier-2 transition-shadow duration-300">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed/30 flex items-center justify-center text-tertiary-container mb-xs">
+<span class="material-symbols-outlined filled">monitoring</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Data-Driven Insights</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Move beyond guesswork. Receive personalized, actionable insights based on your unique physiological patterns.</p>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-2xl p-lg shadow-tier-1 border border-outline-variant/30 flex flex-col items-start gap-sm hover:shadow-tier-2 transition-shadow duration-300">
+<div class="w-12 h-12 rounded-full bg-primary-fixed-dim/30 flex items-center justify-center text-primary mb-xs">
+<span class="material-symbols-outlined filled">spa</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Zero Stereotypes</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">A sophisticated, gender-inclusive design that respects the complexity of your health journey.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-lg px-lg flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto bg-surface dark:bg-surface-dim border-t border-outline-variant/30 mt-auto">
+<div class="flex flex-col items-center md:items-start gap-xs mb-sm md:mb-0">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">CycleCare</span>
+<span class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant opacity-80">© 2024 CycleCare Wellness. All rights reserved.</span>
+</div>
+<nav class="flex flex-wrap justify-center gap-md">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:underline transition-opacity opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:underline transition-opacity opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:underline transition-opacity opacity-80 hover:opacity-100" href="#">Contact</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:underline transition-opacity opacity-80 hover:opacity-100" href="#">About Us</a>
+</nav>
+</footer>
+</body></html>
