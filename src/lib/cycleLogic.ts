@@ -86,9 +86,21 @@ export const calculatePredictions = (
     lastPeriodStartDate = sortedCycles[0].start_date;
   }
 
-  // Fallback start date if user has no data yet (assume started 12 days ago for demo initial state)
+  // No data yet — return an empty prediction state so the UI can prompt onboarding
   if (!lastPeriodStartDate) {
-    lastPeriodStartDate = addDays(todayStr, -11);
+    return {
+      currentCycleDay: 0,
+      currentPhase: 'Follicular',
+      phaseDescription: 'Log your first period to begin tracking your cycle and receiving personalized predictions.',
+      nextPeriodDate: '—',
+      daysUntilNextPeriod: 0,
+      predictedOvulationDate: '—',
+      averageCycleLength: defaultCycleLength,
+      averagePeriodLength: defaultPeriodLength,
+      confidenceScore: 0,
+      confidenceLevel: 'Baseline',
+      confidenceDescription: 'No cycle data yet. Log your first period to start tracking.'
+    };
   }
 
   // Calculate Average Cycle Length from recorded cycles
@@ -187,6 +199,11 @@ export const discoverPersonalPatterns = (
   checkIns: DailyCheckIn[],
   cycles: Cycle[]
 ): PatternInsight[] => {
+  // No data yet — return empty so the UI can show an onboarding state
+  if (symptomLogs.length === 0 && checkIns.length === 0 && cycles.length === 0) {
+    return [];
+  }
+
   const insights: PatternInsight[] = [
     {
       id: 'fatigue-pattern',

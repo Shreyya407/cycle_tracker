@@ -24,6 +24,17 @@ export const InsightsPage: React.FC = () => {
       </header>
 
       {/* Pattern Cards Grid */}
+      {patterns.length === 0 ? (
+        <div className="bg-surface-container-lowest rounded-2xl p-12 shadow-tier-1 border border-outline-variant/10 text-center">
+          <div className="w-16 h-16 rounded-full bg-secondary-container/30 flex items-center justify-center mx-auto mb-4">
+            <span className="material-symbols-outlined text-secondary text-[32px]">insights</span>
+          </div>
+          <h3 className="font-serif text-2xl text-primary mb-2">No Patterns Yet</h3>
+          <p className="font-sans text-body-md text-on-surface-variant max-w-md mx-auto">
+            Personal patterns will appear here once you've logged a few cycles, symptoms, and daily check-ins. Start tracking to unlock personalized insights.
+          </p>
+        </div>
+      ) : (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {patterns.map((item) => (
           <article
@@ -70,6 +81,7 @@ export const InsightsPage: React.FC = () => {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 };

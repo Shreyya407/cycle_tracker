@@ -280,7 +280,7 @@ export const CalendarPage: React.FC = () => {
               <div>
                 <div className="font-sans text-xs text-on-surface-variant">Energy Score</div>
                 <div className="font-serif text-lg text-primary font-bold">
-                  {selectedCheckIn?.energy_level ? `${selectedCheckIn.energy_level} / 5` : 'High (4/5)'}
+                  {selectedCheckIn?.energy_level ? `${selectedCheckIn.energy_level} / 5` : '—'}
                 </div>
               </div>
               <div className="flex gap-1 text-secondary">

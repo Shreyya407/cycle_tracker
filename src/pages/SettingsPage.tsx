@@ -9,7 +9,7 @@ export const SettingsPage: React.FC = () => {
   const { cycles, periodLogs, checkIns, symptomLogs, journalEntries } = useData();
 
   const [isEditingName, setIsEditingName] = useState(false);
-  const [nameInput, setNameInput] = useState(profile?.full_name || 'Sarah Doe');
+  const [nameInput, setNameInput] = useState(profile?.full_name || '');
 
   const handleSaveName = async () => {
     await updateProfile({ full_name: nameInput });
@@ -109,19 +109,19 @@ export const SettingsPage: React.FC = () => {
               </div>
             ) : (
               <div className="flex items-center gap-2 mb-1">
-                <h2 className="font-serif text-2xl text-on-surface">{profile?.full_name || 'Sarah Doe'}</h2>
+                <h2 className="font-serif text-2xl text-on-surface">{profile?.full_name || 'New Member'}</h2>
                 <button onClick={() => setIsEditingName(true)} className="text-on-surface-variant hover:text-primary">
                   <span className="material-symbols-outlined text-sm">edit</span>
                 </button>
               </div>
             )}
 
-            <p className="font-sans text-xs text-on-surface-variant mb-6">{profile?.email || 'sarah.doe@example.com'}</p>
+            <p className="font-sans text-xs text-on-surface-variant mb-6">{profile?.email || 'No email on file'}</p>
 
             <div className="w-full bg-surface-container-low p-4 rounded-xl border border-outline-variant/10 text-left text-xs text-on-surface-variant space-y-1">
               <div className="flex justify-between">
                 <span>Cycle Baseline:</span>
-                <span className="font-semibold text-primary capitalize">{profile?.cycle_regularity || 'Regular'}</span>
+                <span className="font-semibold text-primary capitalize">{profile?.cycle_regularity || 'Not set'}</span>
               </div>
               <div className="flex justify-between">
                 <span>Default Cycle Length:</span>

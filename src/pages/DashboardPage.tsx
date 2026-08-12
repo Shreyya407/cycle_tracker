@@ -6,29 +6,23 @@ import { useData } from '../context/DataContext';
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const { profile } = useAuth();
-  const { prediction, patterns, checkIns, symptomLogs } = useData();
+  const { prediction, patterns, checkIns, symptomLogs, cycles } = useData();
 
   const todayStr = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
-  const userName = profile?.full_name?.split(' ')[0] || 'Sarah';
+  const userName = profile?.full_name?.split(' ')[0] || 'there';
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good Morning' : hour < 18 ? 'Good Afternoon' : 'Good Evening';
 
-  // Get today's check-in
-  const todayCheckIn = checkIns.find(
-    c => c.check_in_date === new Date().toISOString().split('T')[0]
-  );
+  const todayDateStr = new Date().toISOString().split('T')[0];
+  const todayCheckIn = checkIns.find(c => c.check_in_date === todayDateStr);
+  const todaySymptoms = symptomLogs.filter(s => s.log_date === todayDateStr);
 
-  const todaySymptoms = symptomLogs.filter(
-    s => s.log_date === new Date().toISOString().split('T')[0]
-  );
+  const hasCycleData = cycles.length > 0 || prediction.currentCycleDay > 0;
+  const progressPercentage = hasCycleData
+    ? Math.min(100, Math.round((prediction.currentCycleDay / prediction.averageCycleLength) * 100))
+    : 0;
 
-  const progressPercentage = Math.min(
-    100,
-    Math.round((prediction.currentCycleDay / prediction.averageCycleLength) * 100)
-  );
-
-  const topInsight = patterns[0] || {
-    title: 'Personal Insight',
-    description: 'Based on your past cycles, you often feel more energized and social during this specific phase.',
-  };
+  const topInsight = patterns[0] || null;
 
   return (
     <div className="p-4 lg:p-8 max-w-container-max mx-auto space-y-8">
@@ -36,19 +30,47 @@ export const DashboardPage: React.FC = () => {
       <header className="flex justify-between items-end">
         <div>
           <p className="font-sans text-label-md text-on-surface-variant mb-1">Today, {todayStr}</p>
-          <h2 className="font-serif text-3xl md:text-4xl text-primary font-medium">Good Morning, {userName}</h2>
+          <h2 className="font-serif text-3xl md:text-4xl text-primary font-medium">{greeting}, {userName}</h2>
         </div>
-        <div 
+        <div
           onClick={() => navigate('/settings')}
-          className="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-container shadow-sm cursor-pointer hover:opacity-90 transition-opacity"
+          className="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-container shadow-sm cursor-pointer hover:opacity-90 transition-opacity bg-surface-container flex items-center justify-center"
         >
-          <img
-            src={profile?.avatar_url || 'https://lh3.googleusercontent.com/aida-public/AB6AXuASSGSAVOeN5OnaxdNq9Ghc8A1eVagyeo_4dF4M3WaqUIop34KkDyc1vm36n6TW9JedrL_-k2SKngEXOl9_ovvxwZgZWYSMTjIHe1u5WsG9UizGfdN17p2NvUpzdzV-UBm0Dd2K_CrrK746V3_jn42EwP0sJebaht4IRgWmoEmcpPDpzwh4gXcUg5YTe1E9KQI6h-XJTkQ0yoC2DTOHDWuC_QNpz-TWwUgYwG2Cs8UI9pNVKFAWavk'}
-            alt="User Profile"
-            className="w-full h-full object-cover"
-          />
+          {profile?.avatar_url ? (
+            <img
+              src={profile.avatar_url}
+              alt="User Profile"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="material-symbols-outlined text-on-surface-variant text-[24px]">person</span>
+          )}
         </div>
       </header>
+
+      {/* Onboarding Prompt for first-time users with no cycle data */}
+      {!hasCycleData && (
+        <div className="bg-gradient-to-br from-secondary-container/40 to-tertiary-fixed/30 rounded-[24px] p-6 lg:p-8 shadow-tier-1 border border-outline-variant/20">
+          <div className="flex items-start gap-4">
+            <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-on-primary text-[28px]">favorite</span>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-serif text-2xl text-primary mb-2">Welcome to CycleCare</h3>
+              <p className="font-sans text-body-md text-on-surface-variant mb-4 max-w-2xl">
+                To start tracking your cycle and receiving personalized predictions, log your most recent period. This helps us calculate your cycle day, predict your next period, and surface meaningful patterns over time.
+              </p>
+              <button
+                onClick={() => navigate('/calendar')}
+                className="px-6 py-3 bg-primary text-on-primary font-label-md text-sm rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-all shadow-tier-1 active:scale-95 inline-flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined text-[18px]">calendar_today</span>
+                <span>Log Your First Period</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Hero Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -60,50 +82,62 @@ export const DashboardPage: React.FC = () => {
           <div className="relative z-10 flex justify-between items-start flex-wrap gap-4">
             <div>
               <span className="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-sm text-xs mb-3 border border-secondary-container">
-                {prediction.currentPhase} Phase
+                {hasCycleData ? `${prediction.currentPhase} Phase` : 'Getting Started'}
               </span>
-              <h3 className="font-serif text-4xl lg:text-5xl text-primary mb-2">Cycle Day {prediction.currentCycleDay}</h3>
+              <h3 className="font-serif text-4xl lg:text-5xl text-primary mb-2">
+                {hasCycleData ? `Cycle Day ${prediction.currentCycleDay}` : 'No Cycle Logged Yet'}
+              </h3>
               <p className="font-sans text-body-md text-on-surface-variant max-w-md">
                 {prediction.phaseDescription}
               </p>
             </div>
 
             {/* Prediction Confidence Badge */}
-            <div className="text-right bg-surface-container-low/80 p-3 rounded-2xl border border-outline-variant/20 backdrop-blur-sm">
-              <div className="flex items-center gap-1 justify-end text-secondary font-semibold">
-                <span className="material-symbols-outlined text-sm">verified</span>
-                <span className="font-label-sm text-xs">{prediction.confidenceScore}% Confidence</span>
+            {hasCycleData && (
+              <div className="text-right bg-surface-container-low/80 p-3 rounded-2xl border border-outline-variant/20 backdrop-blur-sm">
+                <div className="flex items-center gap-1 justify-end text-secondary font-semibold">
+                  <span className="material-symbols-outlined text-sm">verified</span>
+                  <span className="font-label-sm text-xs">{prediction.confidenceScore}% Confidence</span>
+                </div>
+                <p className="font-sans text-xs text-on-surface-variant mt-0.5">{prediction.confidenceDescription}</p>
               </div>
-              <p className="font-sans text-xs text-on-surface-variant mt-0.5">{prediction.confidenceDescription}</p>
-            </div>
+            )}
           </div>
 
           <div className="relative z-10 mt-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <p className="font-sans text-label-md text-on-surface-variant mb-1">Next Predicted Period</p>
               <p className="font-serif text-2xl text-primary">
-                {prediction.nextPeriodDate}{' '}
-                <span className="font-sans text-sm text-on-surface-variant ml-2 font-normal">
-                  (in {prediction.daysUntilNextPeriod} days)
-                </span>
+                {hasCycleData ? (
+                  <>
+                    {prediction.nextPeriodDate}{' '}
+                    <span className="font-sans text-sm text-on-surface-variant ml-2 font-normal">
+                      (in {prediction.daysUntilNextPeriod} days)
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-on-surface-variant">—</span>
+                )}
               </p>
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full md:w-1/2">
-              <div className="flex justify-between font-label-sm text-xs text-on-surface-variant mb-2">
-                <span>Day 1</span>
-                <span>Day {prediction.averageCycleLength}</span>
-              </div>
-              <div className="h-2.5 w-full bg-surface-variant rounded-full overflow-hidden p-0.5">
-                <div
-                  className="h-full bg-tertiary-container rounded-full relative transition-all duration-500"
-                  style={{ width: `${progressPercentage}%` }}
-                >
-                  <div className="absolute right-0 top-0 bottom-0 w-2 bg-white/60 rounded-full"></div>
+            {hasCycleData && (
+              <div className="w-full md:w-1/2">
+                <div className="flex justify-between font-label-sm text-xs text-on-surface-variant mb-2">
+                  <span>Day 1</span>
+                  <span>Day {prediction.averageCycleLength}</span>
+                </div>
+                <div className="h-2.5 w-full bg-surface-variant rounded-full overflow-hidden p-0.5">
+                  <div
+                    className="h-full bg-tertiary-container rounded-full relative transition-all duration-500"
+                    style={{ width: `${progressPercentage}%` }}
+                  >
+                    <div className="absolute right-0 top-0 bottom-0 w-2 bg-white/60 rounded-full"></div>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
@@ -111,24 +145,47 @@ export const DashboardPage: React.FC = () => {
         <div className="flex flex-col gap-6 h-full">
           {/* Insight Card */}
           <div className="flex-1 bg-surface-container-low rounded-[24px] p-6 shadow-tier-1 border border-outline-variant/10 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="material-symbols-outlined text-tertiary p-2 bg-tertiary-fixed rounded-full text-[18px]">
-                  auto_awesome
-                </span>
-                <h4 className="font-serif text-xl text-primary">{topInsight.title}</h4>
+            {topInsight ? (
+              <>
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="material-symbols-outlined text-tertiary p-2 bg-tertiary-fixed rounded-full text-[18px]">
+                      auto_awesome
+                    </span>
+                    <h4 className="font-serif text-xl text-primary">{topInsight.title}</h4>
+                  </div>
+                  <p className="font-sans text-body-md text-on-surface mb-4">
+                    {topInsight.description}
+                  </p>
+                </div>
+                <button
+                  onClick={() => navigate('/insights')}
+                  className="text-tertiary font-label-md text-sm flex items-center gap-1 hover:opacity-80 transition-opacity w-fit mt-2"
+                >
+                  <span>View Pattern Details</span>
+                  <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+              </>
+            ) : (
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="material-symbols-outlined text-on-surface-variant p-2 bg-surface-container-high rounded-full text-[18px]">
+                    lightbulb
+                  </span>
+                  <h4 className="font-serif text-xl text-primary">No Patterns Yet</h4>
+                </div>
+                <p className="font-sans text-body-md text-on-surface-variant mb-4">
+                  Personal insights will appear here once you've logged a few cycles and daily check-ins. Start tracking to unlock tailored patterns.
+                </p>
+                <button
+                  onClick={() => navigate('/check-in')}
+                  className="text-tertiary font-label-md text-sm flex items-center gap-1 hover:opacity-80 transition-opacity w-fit mt-2"
+                >
+                  <span>Start a Check-in</span>
+                  <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
               </div>
-              <p className="font-sans text-body-md text-on-surface mb-4">
-                {topInsight.description}
-              </p>
-            </div>
-            <button
-              onClick={() => navigate('/insights')}
-              className="text-tertiary font-label-md text-sm flex items-center gap-1 hover:opacity-80 transition-opacity w-fit mt-2"
-            >
-              <span>View Pattern Details</span>
-              <span className="material-symbols-outlined text-sm">arrow_forward</span>
-            </button>
+            )}
           </div>
 
           {/* Quick Actions Grid */}
@@ -165,7 +222,9 @@ export const DashboardPage: React.FC = () => {
               <span className="material-symbols-outlined text-secondary text-[24px]">sentiment_satisfied</span>
             </div>
             <h4 className="font-label-sm text-xs text-on-surface-variant mb-1">Mood</h4>
-            <p className="font-serif text-2xl text-primary capitalize">{todayCheckIn?.mood || 'Calm'}</p>
+            <p className="font-serif text-2xl text-primary capitalize">
+              {todayCheckIn?.mood || '—'}
+            </p>
           </div>
 
           {/* Energy Widget */}
@@ -178,7 +237,7 @@ export const DashboardPage: React.FC = () => {
             </div>
             <h4 className="font-label-sm text-xs text-on-surface-variant mb-1">Energy Level</h4>
             <p className="font-serif text-2xl text-primary">
-              {todayCheckIn?.energy_level ? `${todayCheckIn.energy_level}/5` : 'High'}
+              {todayCheckIn?.energy_level ? `${todayCheckIn.energy_level}/5` : '—'}
             </p>
           </div>
 
@@ -192,7 +251,7 @@ export const DashboardPage: React.FC = () => {
             </div>
             <h4 className="font-label-sm text-xs text-on-surface-variant mb-1">Sleep</h4>
             <p className="font-serif text-2xl text-primary">
-              {todayCheckIn?.sleep_hours ? `${todayCheckIn.sleep_hours}h` : '7.5h'}
+              {todayCheckIn?.sleep_hours ? `${todayCheckIn.sleep_hours}h` : '—'}
             </p>
           </div>
 
@@ -206,7 +265,7 @@ export const DashboardPage: React.FC = () => {
             </div>
             <h4 className="font-label-sm text-xs text-on-surface-variant mb-1">Symptoms</h4>
             <p className="font-serif text-2xl text-primary">
-              {todaySymptoms.length > 0 ? `${todaySymptoms.length} Logged` : '1 Logged'}
+              {todaySymptoms.length > 0 ? `${todaySymptoms.length} Logged` : '—'}
             </p>
           </div>
         </div>
