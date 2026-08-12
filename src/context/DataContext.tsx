@@ -30,7 +30,7 @@ interface DataContextType {
   logPeriodDay: (date: string, flow: FlowLevel) => Promise<void>;
   saveCheckIn: (checkIn: Partial<DailyCheckIn>) => Promise<void>;
   logSymptom: (symptomType: string, category: SymptomCategory, severity: number, date?: string) => Promise<void>;
-  saveJournalEntry: (title: string, body: string, date?: string) => Promise<void>;
+  saveJournalEntry: (title: string, body: string, date?: string, id?: string) => Promise<void>;
   deleteJournalEntry: (id: string) => Promise<void>;
   updateReminderSettings: (updated: Partial<ReminderSettings>) => Promise<void>;
 }
@@ -184,12 +184,21 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
           console.error('Failed to parse local storage data', e);
         }
       } else {
-        const mock = generateInitialMockData(userId);
-        setCycles(mock.cycles);
-        setPeriodLogs(mock.periodLogs);
-        setCheckIns(mock.checkIns);
-        setSymptomLogs(mock.symptomLogs);
-        setJournalEntries(mock.journalEntries);
+        if (userId === 'demo-user-123') {
+          const mock = generateInitialMockData(userId);
+          setCycles(mock.cycles);
+          setPeriodLogs(mock.periodLogs);
+          setCheckIns(mock.checkIns);
+          setSymptomLogs(mock.symptomLogs);
+          setJournalEntries(mock.journalEntries);
+        } else {
+          setCycles([]);
+          setPeriodLogs([]);
+          setCheckIns([]);
+          setSymptomLogs([]);
+          setJournalEntries([]);
+          setReminderSettings({ ...defaultReminders, user_id: userId });
+        }
       }
       setLoading(false);
     }
@@ -221,7 +230,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         supabase.from('daily_check_ins').select('*').eq('user_id', userId),
         supabase.from('symptom_logs').select('*').eq('user_id', userId),
         supabase.from('journal_entries').select('*').eq('user_id', userId),
-        supabase.from('reminder_settings').select('*').eq('user_id', userId).single()
+        supabase.from('reminder_settings').select('*').eq('user_id', userId).maybeSingle()
       ]);
 
       if (cyRes.data) setCycles(cyRes.data);
@@ -333,23 +342,49 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   // Save Journal Entry
-  const saveJournalEntry = async (title: string, body: string, date?: string) => {
+  const saveJournalEntry = async (title: string, body: string, date?: string, id?: string) => {
     const entryDate = date || formatDate(new Date());
+    const now = new Date().toISOString();
+    const existingEntry = id ? journalEntries.find(entry => entry.id === id) : undefined;
+
+    if (existingEntry) {
+      const updatedEntry: JournalEntry = {
+        ...existingEntry,
+        title,
+        body,
+        entry_date: entryDate,
+        cycle_day: existingEntry.cycle_day || prediction.currentCycleDay,
+        updated_at: now
+      };
+      setJournalEntries(prev => prev.map(entry => entry.id === id ? updatedEntry : entry));
+
+      if (isSupabaseConfigured()) {
+        const { error } = await supabase
+          .from('journal_entries')
+          .update({ title, body, entry_date: entryDate, updated_at: now })
+          .eq('id', id)
+          .eq('user_id', userId);
+        if (error) throw error;
+      }
+      return;
+    }
+
     const newEntry: JournalEntry = {
       id: `j-${Date.now()}`,
       user_id: userId,
       entry_date: entryDate,
       cycle_day: prediction.currentCycleDay,
-      title,
+      title: title.trim() || 'Untitled Entry',
       body,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      created_at: now,
+      updated_at: now
     };
 
     setJournalEntries(prev => [newEntry, ...prev]);
 
     if (isSupabaseConfigured()) {
-      await supabase.from('journal_entries').insert([newEntry]);
+      const { error } = await supabase.from('journal_entries').insert([newEntry]);
+      if (error) throw error;
     }
   };
 
